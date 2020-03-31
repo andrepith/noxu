@@ -5,7 +5,7 @@ import { find, uniqBy } from "lodash";
 
 import { favoriteAction } from "store/actions";
 
-const Card = ({ movieList, favorites, favoriteAction }) => {
+const Card = ({ favorites, favoriteAction, searchData = [] }) => {
   const handleClick = item => {
     favoriteAction(uniqBy([...favorites, item], "imdbID"));
   };
@@ -20,7 +20,7 @@ const Card = ({ movieList, favorites, favoriteAction }) => {
 
   return (
     <Row md={3}>
-      {movieList.data.Search.map((item, key) => (
+      {searchData.map((item, key) => (
         <Col style={{ marginBottom: "1rem" }} md={3} key={key}>
           <div className="card" style={{ minHeight: "500px" }}>
             <div className="card-image">
@@ -50,8 +50,7 @@ const Card = ({ movieList, favorites, favoriteAction }) => {
   );
 };
 
-const mapStateToProps = ({ movieList, favorites }) => ({
-  movieList,
+const mapStateToProps = ({ favorites }) => ({
   favorites
 });
 

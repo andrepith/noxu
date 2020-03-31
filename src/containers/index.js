@@ -1,26 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
-
+import { Tabs, Tab } from "react-bootstrap";
 import SearchByTitle from "components/searchByTitle";
-import Card from "components/card";
+import SearchResult from "./searchResult";
+import Favorites from "./favorites";
 
 const HomePage = ({ movieList }) => {
+  const [key, setKey] = useState("home");
   const isMovieList = Object.keys(movieList).length;
 
   try {
     return (
-      <div>
-        <SearchByTitle />
-        {isMovieList ? (
-          movieList.data.Response !== "False" ? (
-            <Card />
+      <Tabs activeKey={key} onSelect={k => setKey(k)}>
+        <Tab eventKey="home" title="Home">
+          <SearchByTitle />
+          {isMovieList ? (
+            movieList.data.Response !== "False" ? (
+              <SearchResult />
+            ) : (
+              <div>{movieList.data.Error}</div>
+            )
           ) : (
-            <div>{movieList.data.Error}</div>
-          )
-        ) : (
-          <div></div>
-        )}
-      </div>
+            <div></div>
+          )}
+        </Tab>
+        <Tab eventKey="fav" title="Favorites">
+          <Favorites />
+        </Tab>
+      </Tabs>
     );
   } catch (error) {
     console.error(error);
