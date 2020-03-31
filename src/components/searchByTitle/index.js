@@ -15,7 +15,7 @@ const SearchByTitle = ({ getMovieListByTitle }) => {
       getMovieListByTitle({ search });
     }, 300);
     return (
-      <InputGroup className="mb-3">
+      <InputGroup className="mb-4">
         <FormControl onChange={handleChange} placeholder="Try Avengers...." />
         <InputGroup />
       </InputGroup>

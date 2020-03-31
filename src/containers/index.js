@@ -11,7 +11,7 @@ const HomePage = ({ movieList }) => {
 
   try {
     return (
-      <Tabs activeKey={key} onSelect={k => setKey(k)}>
+      <Tabs activeKey={key} onSelect={k => setKey(k)} className="mb-4 my-4">
         <Tab eventKey="home" title="Home">
           <SearchByTitle />
           {isMovieList ? (
