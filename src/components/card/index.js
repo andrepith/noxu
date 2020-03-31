@@ -1,9 +1,23 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Row, Col, Button } from "react-bootstrap";
+import { find, uniqBy } from "lodash";
 
-const Card = ({ movieList }) => {
-  const handleClick = item => {};
+import { favoriteAction } from "store/actions";
+
+const Card = ({ movieList, favorites, favoriteAction }) => {
+  const handleClick = item => {
+    favoriteAction(uniqBy([...favorites, item], "imdbID"));
+  };
+
+  const handleRemove = item => {
+    favoriteAction(favorites.filter(fav => fav.imdbID !== item.imdbID));
+  };
+
+  const isFavorited = item => {
+    return !find(favorites, { imdbID: item.imdbID });
+  };
+
   return (
     <Row md={3}>
       {movieList.data.Search.map((item, key) => (
@@ -19,7 +33,15 @@ const Card = ({ movieList }) => {
             </div>
             <div className="card-body text-center">
               <div>{item.Title}</div>
-              <Button onClick={() => handleClick(item)}>Add to favorite</Button>
+              {isFavorited(item) ? (
+                <Button onClick={() => handleClick(item)} variant="success">
+                  Add to favorite
+                </Button>
+              ) : (
+                <Button onClick={() => handleRemove(item)} variant="danger">
+                  Remove to favorite
+                </Button>
+              )}
             </div>
           </div>
         </Col>
@@ -28,6 +50,9 @@ const Card = ({ movieList }) => {
   );
 };
 
-const mapStateToProps = ({ movieList }) => ({ movieList });
+const mapStateToProps = ({ movieList, favorites }) => ({
+  movieList,
+  favorites
+});
 
-export default connect(mapStateToProps, null)(Card);
+export default connect(mapStateToProps, { favoriteAction })(Card);
