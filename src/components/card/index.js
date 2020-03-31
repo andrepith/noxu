@@ -10,7 +10,12 @@ const Card = ({ movieList }) => {
         <Col style={{ marginBottom: "1rem" }} md={3} key={key}>
           <div className="card" style={{ minHeight: "500px" }}>
             <div className="card-image">
-              <img alt={item.Title} src={item.Poster} className="img-fluid" />
+              <img
+                alt={item.Title}
+                src={item.Poster}
+                className="img-fluid"
+                style={{ width: "100%" }}
+              />
             </div>
             <div className="card-body text-center">
               <div>{item.Title}</div>
