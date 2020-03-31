@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { InputGroup, FormControl, Button } from "react-bootstrap";
+import { InputGroup, FormControl } from "react-bootstrap";
 import { debounce } from "lodash";
 
 import { getMovieListByTitle } from "store/actions";
@@ -17,9 +17,7 @@ const SearchByTitle = ({ getMovieListByTitle }) => {
     return (
       <InputGroup className="mb-3">
         <FormControl onChange={handleChange} placeholder="Try Avengers...." />
-        <InputGroup.Append>
-          <Button variant="outline-secondary">Search</Button>
-        </InputGroup.Append>
+        <InputGroup />
       </InputGroup>
     );
   } catch (error) {
